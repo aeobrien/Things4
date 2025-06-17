@@ -1,12 +1,17 @@
 import SwiftUI
 import Things4
 
+import UniformTypeIdentifiers
+
 struct ToDoListView: View {
     @ObservedObject var store: DatabaseStore
     var selection: ListSelection
+    @State private var editMode: EditMode = .inactive
+    @State private var multiSelection = Set<UUID>()
+    @State private var showSchedulerFor: UUID?
 
     var body: some View {
-        List {
+        List(selection: $multiSelection) {
             if case let .project(projectID) = selection {
                 let progress = store.progress(for: projectID)
                 Section {
@@ -58,6 +63,26 @@ struct ToDoListView: View {
                 }
             }
         }
+        .environment(\.editMode, $editMode)
+        .overlay(alignment: .bottomTrailing) {
+            MagicPlusButton {
+                store.addTodo(to: selection)
+            }
+        }
+        .overlay(alignment: .leading) {
+            if case let .project(projectID) = selection {
+                Color.clear
+                    .frame(width: 40)
+                    .contentShape(Rectangle())
+                    .onDrop(of: [.text], isTargeted: nil) { _ in
+                        store.addHeading(to: projectID)
+                        return true
+                    }
+            }
+        }
+        .sheet(item: $showSchedulerFor) { id in
+            SchedulerView(todo: store.binding(for: id))
+        }
     }
 
     @ViewBuilder
@@ -70,6 +95,26 @@ struct ToDoListView: View {
                     .strikethrough(todo.status == .completed)
                     .foregroundColor(todo.status == .completed ? .gray : .primary)
             }
+        }
+        .swipeActions(edge: .leading) {
+            Button {
+                showSchedulerFor = todo.id
+            } label: {
+                Label("When", systemImage: "calendar")
+            }
+        }
+        .swipeActions(edge: .trailing) {
+            Button {
+                editMode = .active
+                multiSelection.insert(todo.id)
+            } label: {
+                Label("Select", systemImage: "checkmark.circle")
+            }
+            .tint(.blue)
+        }
+        .onDrop(of: [.text], isTargeted: nil) { _ in
+            store.insertTodo(after: todo.id, in: selection)
+            return true
         }
     }
 }

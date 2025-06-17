@@ -54,6 +54,24 @@ final class DatabaseStore: ObservableObject {
         save()
     }
 
+    func insertTodo(after otherID: UUID, in selection: ListSelection) {
+        guard let index = database.toDos.firstIndex(where: { $0.id == otherID }) else {
+            addTodo(to: selection)
+            return
+        }
+        var todo = ToDo(title: "New To-Do")
+        switch selection {
+        case .project(let id):
+            todo.parentProjectID = id
+        case .area(let id):
+            todo.parentAreaID = id
+        case .list:
+            break
+        }
+        database.toDos.insert(todo, at: index + 1)
+        save()
+    }
+
     func toggleCompletion(for todoID: UUID) {
         repeatEngine.toggleCompletion(of: todoID, in: &database)
         save()
