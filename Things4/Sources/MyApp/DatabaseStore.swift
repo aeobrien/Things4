@@ -238,6 +238,7 @@ final class DatabaseStore: ObservableObject {
         workflow.progress(for: projectID, in: database)
     }
 
+
     // MARK: - Cancel & Trash
 
     func cancelTodo(_ id: UUID) {
@@ -278,4 +279,8 @@ final class DatabaseStore: ObservableObject {
             save()
         }
     }
+
 }
+
+
+
