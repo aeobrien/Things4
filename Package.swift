@@ -17,13 +17,18 @@ let package = Package(
             path: "Things4",
             exclude: [
                 "Assets.xcassets",
-                "ContentView.swift",
-                "Things4App.swift",
+                "Sources",
                 "Things4.entitlements"
             ],
             sources: [
                 "Models/Models.swift",
-                "PersistenceManager.swift"
+                "PersistenceManager.swift",
+                "SyncManager.swift",
+                "WorkflowEngine.swift",
+                "RepeatingTaskEngine.swift",
+                "DefaultList.swift",
+                "URLScheme.swift",
+                "SiriShortcuts.swift"
             ]
         ),
         .testTarget(
