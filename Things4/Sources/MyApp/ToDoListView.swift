@@ -8,12 +8,14 @@ struct ToDoListView: View {
     var body: some View {
         List {
             ForEach(store.filteredToDos(selection: selection)) { todo in
-                HStack {
-                    Image(systemName: todo.status == .completed ? "checkmark.circle.fill" : "circle")
-                        .onTapGesture { store.toggleCompletion(for: todo.id) }
-                    Text(todo.title)
-                        .strikethrough(todo.status == .completed)
-                        .foregroundColor(todo.status == .completed ? .gray : .primary)
+                NavigationLink(destination: ToDoDetailView(store: store, todo: store.binding(for: todo.id))) {
+                    HStack {
+                        Image(systemName: todo.status == .completed ? "checkmark.circle.fill" : "circle")
+                            .onTapGesture { store.toggleCompletion(for: todo.id) }
+                        Text(todo.title)
+                            .strikethrough(todo.status == .completed)
+                            .foregroundColor(todo.status == .completed ? .gray : .primary)
+                    }
                 }
             }
             .onDelete { offsets in

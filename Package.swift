@@ -22,7 +22,9 @@ let package = Package(
             ],
             sources: [
                 "Models/Models.swift",
-                "PersistenceManager.swift"
+                "PersistenceManager.swift",
+                "WorkflowEngine.swift",
+                "DefaultList.swift"
             ]
         ),
         .testTarget(

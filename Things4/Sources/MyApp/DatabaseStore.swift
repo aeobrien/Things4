@@ -64,7 +64,39 @@ final class DatabaseStore: ObservableObject {
         save()
     }
 
-    private func save() {
+    func save() {
         Task { try? await PersistenceManager.shared.save(database) }
+    }
+
+    func binding(for todoID: UUID) -> Binding<ToDo> {
+        Binding {
+            self.database.toDos.first(where: { $0.id == todoID }) ?? ToDo(title: "")
+        } set: { newValue in
+            if let index = self.database.toDos.firstIndex(where: { $0.id == todoID }) {
+                self.database.toDos[index] = newValue
+                self.save()
+            }
+        }
+    }
+
+    func addTag(_ name: String, to todoID: UUID) {
+        let tag: Tag
+        if let existing = database.tags.first(where: { $0.name.lowercased() == name.lowercased() }) {
+            tag = existing
+        } else {
+            tag = Tag(name: name)
+            database.tags.append(tag)
+        }
+        guard let index = database.toDos.firstIndex(where: { $0.id == todoID }) else { return }
+        if !database.toDos[index].tagIDs.contains(tag.id) {
+            database.toDos[index].tagIDs.append(tag.id)
+            save()
+        }
+    }
+
+    func removeTag(_ tagID: UUID, from todoID: UUID) {
+        guard let index = database.toDos.firstIndex(where: { $0.id == todoID }) else { return }
+        database.toDos[index].tagIDs.removeAll { $0 == tagID }
+        save()
     }
 }
