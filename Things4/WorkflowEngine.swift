@@ -45,4 +45,11 @@ public struct WorkflowEngine {
             }.sorted { ($0.completionDate ?? Date.distantPast) > ($1.completionDate ?? Date.distantPast) }
         }
     }
+
+    public func progress(for projectID: UUID, in database: Database) -> Double {
+        let tasks = database.toDos.filter { $0.parentProjectID == projectID && $0.status != .canceled }
+        guard !tasks.isEmpty else { return 0 }
+        let completed = tasks.filter { $0.status == .completed }.count
+        return Double(completed) / Double(tasks.count)
+    }
 }

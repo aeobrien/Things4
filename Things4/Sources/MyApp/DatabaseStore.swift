@@ -5,6 +5,7 @@ import Things4
 final class DatabaseStore: ObservableObject {
     @Published var database: Database = .init()
     private var workflow = WorkflowEngine()
+    private var repeatEngine = RepeatingTaskEngine()
 
     init() {
         Task {
@@ -45,14 +46,7 @@ final class DatabaseStore: ObservableObject {
     }
 
     func toggleCompletion(for todoID: UUID) {
-        guard let index = database.toDos.firstIndex(where: { $0.id == todoID }) else { return }
-        if database.toDos[index].status == .completed {
-            database.toDos[index].status = .open
-            database.toDos[index].completionDate = nil
-        } else {
-            database.toDos[index].status = .completed
-            database.toDos[index].completionDate = Date()
-        }
+        repeatEngine.toggleCompletion(of: todoID, in: &database)
         save()
     }
 
@@ -73,6 +67,12 @@ final class DatabaseStore: ObservableObject {
         } set: { newValue in
             if let index = self.database.toDos.firstIndex(where: { $0.id == todoID }) {
                 self.database.toDos[index] = newValue
+                if let ruleID = newValue.repeatRuleID,
+                   let rIndex = self.database.repeatRules.firstIndex(where: { $0.id == ruleID }) {
+                    if let data = try? JSONEncoder().encode(newValue) {
+                        self.database.repeatRules[rIndex].templateData = data
+                    }
+                }
                 self.save()
             }
         }
@@ -97,5 +97,91 @@ final class DatabaseStore: ObservableObject {
         guard let index = database.toDos.firstIndex(where: { $0.id == todoID }) else { return }
         database.toDos[index].tagIDs.removeAll { $0 == tagID }
         save()
+    }
+
+    // MARK: - Repeat Rules
+
+    func createRepeatRule(for todoID: UUID) {
+        guard let index = database.toDos.firstIndex(where: { $0.id == todoID }) else { return }
+        let todo = database.toDos[index]
+        let data = (try? JSONEncoder().encode(todo)) ?? Data()
+        let rule = RepeatRule(type: .after_completion, frequency: .daily, templateData: data)
+        database.repeatRules.append(rule)
+        database.toDos[index].repeatRuleID = rule.id
+        save()
+    }
+
+    func removeRepeatRule(from todoID: UUID) {
+        guard let index = database.toDos.firstIndex(where: { $0.id == todoID }) else { return }
+        if let ruleID = database.toDos[index].repeatRuleID {
+            database.repeatRules.removeAll { $0.id == ruleID }
+        }
+        database.toDos[index].repeatRuleID = nil
+        save()
+    }
+
+    func bindingForRule(_ id: UUID) -> Binding<RepeatRule> {
+        Binding {
+            self.database.repeatRules.first(where: { $0.id == id }) ?? RepeatRule(type: .after_completion, frequency: .daily, templateData: Data())
+        } set: { newValue in
+            if let idx = self.database.repeatRules.firstIndex(where: { $0.id == id }) {
+                self.database.repeatRules[idx] = newValue
+                self.save()
+            }
+        }
+    }
+
+    // MARK: - Areas & Projects
+
+    func addArea() {
+        let area = Area(title: "New Area")
+        database.areas.append(area)
+        save()
+    }
+
+    func deleteAreas(at offsets: IndexSet) {
+        let ids = offsets.map { database.areas[$0].id }
+        database.areas.remove(atOffsets: offsets)
+        database.projects.removeAll { ids.contains($0.parentAreaID ?? UUID()) }
+        database.toDos.removeAll { ids.contains($0.parentAreaID ?? UUID()) }
+        save()
+    }
+
+    func addProject(to areaID: UUID?) {
+        let project = Project(title: "New Project", parentAreaID: areaID)
+        database.projects.append(project)
+        save()
+    }
+
+    func deleteProjects(at offsets: IndexSet, in areaID: UUID?) {
+        let projects = database.projects.enumerated().filter { offsets.contains($0.offset) && $0.element.parentAreaID == areaID }
+        let ids = projects.map { $0.element.id }
+        database.projects.removeAll { ids.contains($0.id) }
+        database.toDos.removeAll { ids.contains($0.parentProjectID ?? UUID()) }
+        database.headings.removeAll { ids.contains($0.parentProjectID) }
+        save()
+    }
+
+    // MARK: - Headings
+
+    func addHeading(to projectID: UUID) {
+        let heading = Heading(title: "New Heading", parentProjectID: projectID)
+        database.headings.append(heading)
+        save()
+    }
+
+    func bindingForHeading(_ id: UUID) -> Binding<Heading> {
+        Binding {
+            self.database.headings.first(where: { $0.id == id }) ?? Heading(title: "", parentProjectID: id)
+        } set: { newValue in
+            if let index = self.database.headings.firstIndex(where: { $0.id == id }) {
+                self.database.headings[index] = newValue
+                self.save()
+            }
+        }
+    }
+
+    func progress(for projectID: UUID) -> Double {
+        workflow.progress(for: projectID, in: database)
     }
 }

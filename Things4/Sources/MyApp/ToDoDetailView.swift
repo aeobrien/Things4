@@ -107,6 +107,33 @@ struct ToDoDetailView: View {
                     }), displayedComponents: .date)
                 }
             }
+            Section("Repeat") {
+                Toggle("Repeating", isOn: Binding(get: {
+                    todo.repeatRuleID != nil
+                }, set: { value in
+                    if value {
+                        store.createRepeatRule(for: todo.id)
+                    } else {
+                        store.removeRepeatRule(from: todo.id)
+                    }
+                }))
+                if let ruleID = todo.repeatRuleID {
+                    let rule = store.bindingForRule(ruleID)
+                    Picker("Type", selection: rule.type) {
+                        Text("On Schedule").tag(RepeatType.on_schedule)
+                        Text("After Completion").tag(RepeatType.after_completion)
+                    }
+                    Picker("Frequency", selection: rule.frequency) {
+                        Text("Daily").tag(Frequency.daily)
+                        Text("Weekly").tag(Frequency.weekly)
+                        Text("Monthly").tag(Frequency.monthly)
+                        Text("Yearly").tag(Frequency.yearly)
+                    }
+                    Stepper(value: rule.interval, in: 1...30) {
+                        Text("Interval: \(rule.wrappedValue.interval)")
+                    }
+                }
+            }
         }
         .navigationTitle("Edit To-Do")
         .toolbar { EditButton() }
