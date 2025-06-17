@@ -15,10 +15,20 @@ struct Things4App: App {
 #if canImport(UIKit)
     @UIApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate
 #endif
+    @StateObject private var store = DatabaseStore()
+    @StateObject private var selectionStore = SelectionStore()
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(store)
+                .environmentObject(selectionStore)
         }
+#if os(macOS)
+        .commands { AppCommands().environmentObject(store).environmentObject(selectionStore) }
+        WindowGroup(id: "quickEntry") { QuickEntryView() }
+            .environmentObject(store)
+            .environmentObject(selectionStore)
+#endif
     }
 }
 

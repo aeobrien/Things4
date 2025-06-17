@@ -9,8 +9,8 @@ import SwiftUI
 import Things4
 
 struct ContentView: View {
-    @State private var selection: ListSelection?
-    @StateObject private var store = DatabaseStore()
+    @EnvironmentObject var store: DatabaseStore
+    @EnvironmentObject var selectionStore: SelectionStore
 
     var body: some View {
         VStack {
@@ -30,7 +30,7 @@ struct ContentView: View {
     }
 
     private var splitView: some View {
-        NavigationSplitView(selection: $selection) {
+        NavigationSplitView(selection: $selectionStore.selection) {
             sidebar
         } detail: {
             detail
@@ -38,16 +38,16 @@ struct ContentView: View {
     }
 
     private var stackView: some View {
-        NavigationStack(path: $selection) {
+        NavigationStack(path: $selectionStore.selection) {
             sidebar
                 .navigationDestination(for: ListSelection.self) { sel in
-                    ToDoListView(store: store, selection: sel)
+                    ToDoListView(selection: sel)
                 }
         }
     }
 
     private var sidebar: some View {
-        List(selection: $selection) {
+        List(selection: $selectionStore.selection) {
             Section("Lists") {
                 ForEach(DefaultList.allCases) { list in
                     NavigationLink(value: ListSelection.list(list)) {
@@ -95,8 +95,8 @@ struct ContentView: View {
     }
 
     private var detail: some View {
-        if let selection {
-            ToDoListView(store: store, selection: selection)
+        if let selection = selectionStore.selection {
+            ToDoListView(selection: selection)
         } else {
             Text("Select a list")
                 .navigationTitle("Things4")
@@ -107,4 +107,6 @@ struct ContentView: View {
 
 #Preview {
     ContentView()
+        .environmentObject(DatabaseStore())
+        .environmentObject(SelectionStore())
 }

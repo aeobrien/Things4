@@ -2,7 +2,7 @@ import SwiftUI
 import Things4
 
 struct ToDoDetailView: View {
-    @ObservedObject var store: DatabaseStore
+    @EnvironmentObject var store: DatabaseStore
     @Binding var todo: ToDo
     @State private var newChecklistTitle = ""
     @State private var newTagName = ""
@@ -157,6 +157,7 @@ struct ToDoDetailView: View {
 
 #Preview {
     NavigationStack {
-        ToDoDetailView(store: DatabaseStore(), todo: .constant(ToDo(title: "Test")))
+        ToDoDetailView(todo: .constant(ToDo(title: "Test")))
+            .environmentObject(DatabaseStore())
     }
 }

@@ -4,7 +4,7 @@ import Things4
 import UniformTypeIdentifiers
 
 struct ToDoListView: View {
-    @ObservedObject var store: DatabaseStore
+    @EnvironmentObject var store: DatabaseStore
     var selection: ListSelection
     @State private var editMode: EditMode = .inactive
     @State private var multiSelection = Set<UUID>()
@@ -120,5 +120,6 @@ struct ToDoListView: View {
 }
 
 #Preview {
-    ToDoListView(store: DatabaseStore(), selection: .list(.inbox))
+    ToDoListView(selection: .list(.inbox))
+        .environmentObject(DatabaseStore())
 }

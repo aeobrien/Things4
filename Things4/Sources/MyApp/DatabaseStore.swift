@@ -54,6 +54,22 @@ final class DatabaseStore: ObservableObject {
         save()
     }
 
+    func addQuickTodo(title: String, notes: String, selection: ListSelection?) {
+        var todo = ToDo(title: title, notes: notes)
+        if let selection {
+            switch selection {
+            case .project(let id):
+                todo.parentProjectID = id
+            case .area(let id):
+                todo.parentAreaID = id
+            case .list:
+                break
+            }
+        }
+        database.toDos.append(todo)
+        save()
+    }
+
     func insertTodo(after otherID: UUID, in selection: ListSelection) {
         guard let index = database.toDos.firstIndex(where: { $0.id == otherID }) else {
             addTodo(to: selection)
@@ -75,6 +91,13 @@ final class DatabaseStore: ObservableObject {
     func toggleCompletion(for todoID: UUID) {
         repeatEngine.toggleCompletion(of: todoID, in: &database)
         save()
+    }
+
+    func toggleFirstTodo(in selection: ListSelection?) {
+        let target = selection ?? .list(.inbox)
+        if let first = filteredToDos(selection: target).first {
+            toggleCompletion(for: first.id)
+        }
     }
 
     func deleteTodo(at offsets: IndexSet, selection: ListSelection) {
