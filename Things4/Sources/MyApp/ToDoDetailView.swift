@@ -60,6 +60,33 @@ struct ToDoDetailView: View {
                         .disabled(newTagName.trimmingCharacters(in: .whitespaces).isEmpty)
                 }
             }
+            Section("When") {
+                Toggle("Someday", isOn: Binding(get: {
+                    todo.isSomeday
+                }, set: { value in
+                    todo.isSomeday = value
+                    if value { todo.startDate = nil }
+                    store.save()
+                }))
+                Toggle("Has Start Date", isOn: Binding(get: {
+                    todo.startDate != nil
+                }, set: { value in
+                    if value {
+                        todo.startDate = todo.startDate ?? Date()
+                    } else {
+                        todo.startDate = nil
+                    }
+                    store.save()
+                }))
+                if let _ = todo.startDate {
+                    DatePicker("Start", selection: Binding(get: {
+                        todo.startDate ?? Date()
+                    }, set: { date in
+                        todo.startDate = date
+                        store.save()
+                    }), displayedComponents: .date)
+                }
+            }
             Section("Deadline") {
                 Toggle("Has Deadline", isOn: Binding(get: {
                     todo.deadline != nil
@@ -78,6 +105,33 @@ struct ToDoDetailView: View {
                         todo.deadline = date
                         store.save()
                     }), displayedComponents: .date)
+                }
+            }
+            Section("Repeat") {
+                Toggle("Repeating", isOn: Binding(get: {
+                    todo.repeatRuleID != nil
+                }, set: { value in
+                    if value {
+                        store.createRepeatRule(for: todo.id)
+                    } else {
+                        store.removeRepeatRule(from: todo.id)
+                    }
+                }))
+                if let ruleID = todo.repeatRuleID {
+                    let rule = store.bindingForRule(ruleID)
+                    Picker("Type", selection: rule.type) {
+                        Text("On Schedule").tag(RepeatType.on_schedule)
+                        Text("After Completion").tag(RepeatType.after_completion)
+                    }
+                    Picker("Frequency", selection: rule.frequency) {
+                        Text("Daily").tag(Frequency.daily)
+                        Text("Weekly").tag(Frequency.weekly)
+                        Text("Monthly").tag(Frequency.monthly)
+                        Text("Yearly").tag(Frequency.yearly)
+                    }
+                    Stepper(value: rule.interval, in: 1...30) {
+                        Text("Interval: \(rule.wrappedValue.interval)")
+                    }
                 }
             }
         }

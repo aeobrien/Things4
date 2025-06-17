@@ -4,10 +4,11 @@ import XCTest
 
 final class DataModelTests: XCTestCase {
     func testModelCodable() throws {
-        let todo = ToDo(title: "Test")
+        let todo = ToDo(title: "Test", isSomeday: true)
         let data = try JSONEncoder().encode(todo)
         let decoded = try JSONDecoder().decode(ToDo.self, from: data)
         XCTAssertEqual(decoded.title, todo.title)
+        XCTAssertTrue(decoded.isSomeday)
     }
 
     func testProjectCodable() throws {
