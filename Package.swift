@@ -1,4 +1,4 @@
-// swift-tools-version: 6.1
+// swift-tools-version: 5.9
 import PackageDescription
 
 let package = Package(
@@ -7,18 +7,19 @@ let package = Package(
         .macOS(.v13), .iOS(.v16)
     ],
     products: [
-        .library(name: "Things4", targets: ["Things4"])
+        .executable(name: "Things4", targets: ["Things4"]),
+    ],
+    dependencies: [
+        // Add any dependencies here if needed
     ],
     targets: [
-        .target(
+        .executableTarget(
             name: "Things4",
-            path: "Things4",
-            exclude: ["Assets.xcassets", "ContentView.swift", "Things4App.swift", "Things4.entitlements"]
+            dependencies: []
         ),
         .testTarget(
             name: "Things4Tests",
-            dependencies: ["Things4"],
-            path: "Things4Tests"
-        )
+            dependencies: ["Things4"]
+        ),
     ]
 )
