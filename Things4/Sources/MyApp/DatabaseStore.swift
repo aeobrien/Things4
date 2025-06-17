@@ -10,7 +10,7 @@ final class DatabaseStore: ObservableObject {
     init() {
         Task {
             do {
-                database = try await PersistenceManager.shared.load()
+                database = try await SyncManager.shared.load()
                 if database.areas.isEmpty && database.projects.isEmpty && database.toDos.isEmpty {
                     database = SampleData.database
                 }
@@ -58,7 +58,7 @@ final class DatabaseStore: ObservableObject {
     }
 
     func save() {
-        Task { try? await PersistenceManager.shared.save(database) }
+        Task { try? await SyncManager.shared.save(database) }
     }
 
     func binding(for todoID: UUID) -> Binding<ToDo> {
