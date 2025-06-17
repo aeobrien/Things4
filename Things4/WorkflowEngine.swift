@@ -40,9 +40,8 @@ public struct WorkflowEngine {
         case .someday:
             return database.toDos.filter { $0.status == .open && $0.isSomeday }
         case .logbook:
-            return database.toDos.filter { todo in
-                todo.status == .completed || todo.status == .canceled
-            }.sorted { ($0.completionDate ?? Date.distantPast) > ($1.completionDate ?? Date.distantPast) }
+            return database.toDos.filter { $0.status == .completed }
+                .sorted { ($0.completionDate ?? Date.distantPast) > ($1.completionDate ?? Date.distantPast) }
         }
     }
 

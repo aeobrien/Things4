@@ -27,4 +27,14 @@ final class WorkflowEngineTests: XCTestCase {
         XCTAssertEqual(engine.tasks(for: .someday, in: db).map { $0.title }, ["Someday"])
         XCTAssertEqual(engine.tasks(for: .logbook, in: db).map { $0.title }, ["Done"])
     }
+
+    func testTrashList() {
+        var db = Database()
+        let todo = ToDo(title: "Canceled", status: .canceled)
+        db.toDos = [todo]
+        let engine = WorkflowEngine()
+        let trash = db.toDos.filter { $0.status == .canceled }
+        XCTAssertEqual(trash.map { $0.title }, ["Canceled"])
+        XCTAssertTrue(engine.tasks(for: .logbook, in: db).isEmpty)
+    }
 }

@@ -238,6 +238,33 @@ final class DatabaseStore: ObservableObject {
         workflow.progress(for: projectID, in: database)
     }
 
+
+    // MARK: - Cancel & Trash
+
+    func cancelTodo(_ id: UUID) {
+        guard let index = database.toDos.firstIndex(where: { $0.id == id }) else { return }
+        database.toDos[index].status = .canceled
+        database.toDos[index].completionDate = Date()
+        save()
+    }
+
+    func restoreTodo(_ id: UUID) {
+        guard let index = database.toDos.firstIndex(where: { $0.id == id }) else { return }
+        database.toDos[index].status = .open
+        database.toDos[index].completionDate = nil
+        save()
+    }
+
+    func deletePermanently(_ id: UUID) {
+        database.toDos.removeAll { $0.id == id }
+        save()
+    }
+
+    func emptyTrash() {
+        database.toDos.removeAll { $0.status == .canceled }
+        save()
+    }
+
     func handleRemoteNotification(_ userInfo: [AnyHashable: Any]) {
         Task {
             await SyncManager.shared.handleRemoteNotification(userInfo)
@@ -252,4 +279,8 @@ final class DatabaseStore: ObservableObject {
             save()
         }
     }
+
 }
+
+
+

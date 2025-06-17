@@ -134,6 +134,17 @@ struct ToDoDetailView: View {
                     }
                 }
             }
+            Section("Status") {
+                if todo.status == .open {
+                    Button("Cancel Task", role: .destructive) {
+                        store.cancelTodo(todo.id)
+                    }
+                } else if todo.status == .canceled {
+                    Button("Restore Task") {
+                        store.restoreTodo(todo.id)
+                    }
+                }
+            }
         }
         .navigationTitle("Edit To-Do")
         .toolbar { EditButton() }

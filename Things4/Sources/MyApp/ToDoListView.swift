@@ -11,8 +11,17 @@ struct ToDoListView: View {
     @State private var editMode: EditMode = .inactive
     @State private var multiSelection = Set<UUID>()
     @State private var showSchedulerFor: UUID?
+    @State private var showingTrash = false
 
     var body: some View {
+        let todos: [ToDo] = {
+            if case .list(.logbook) = selection, showingTrash {
+                return store.database.toDos.filter { $0.status == .canceled }
+            } else {
+                return store.filteredToDos(selection: selection)
+            }
+        }()
+
         List(selection: $multiSelection) {
             if case .list(.inbox) = selection, !reminders.reminders.isEmpty {
                 Section("Reminders") {
@@ -60,8 +69,8 @@ struct ToDoListView: View {
                     }
                 }
                 let headings = store.database.headings.filter { $0.parentProjectID == projectID }
-                let todos = store.filteredToDos(selection: selection)
-                let noHeading = todos.filter { $0.headingID == nil }
+                let projectTodos = todos
+                let noHeading = projectTodos.filter { $0.headingID == nil }
                 Section {
                     ForEach(noHeading) { todo in
                         todoRow(todo)
@@ -72,7 +81,7 @@ struct ToDoListView: View {
                 }
                 ForEach(headings) { heading in
                     Section(header: TextField("Heading", text: store.bindingForHeading(heading.id).title)) {
-                        ForEach(todos.filter { $0.headingID == heading.id }) { todo in
+                        ForEach(projectTodos.filter { $0.headingID == heading.id }) { todo in
                             todoRow(todo)
                         }
                         .onDelete { offsets in
@@ -81,22 +90,42 @@ struct ToDoListView: View {
                     }
                 }
             } else {
-                ForEach(store.filteredToDos(selection: selection)) { todo in
+                ForEach(todos) { todo in
                     todoRow(todo)
                 }
                 .onDelete { offsets in
-                    store.deleteTodo(at: offsets, selection: selection)
+                    if case .list(.logbook) = selection, showingTrash {
+                        let ids = offsets.map { todos[$0].id }
+                        ids.forEach(store.deletePermanently)
+                    } else {
+                        store.deleteTodo(at: offsets, selection: selection)
+                    }
                 }
             }
         }
         .navigationTitle(selection.title(in: store.database))
         .toolbar {
-            ToolbarItem(placement: .navigationBarTrailing) {
-                Button(action: { store.addTodo(to: selection) }) { Image(systemName: "plus") }
-            }
-            if case let .project(projectID) = selection {
+            if case .list(.logbook) = selection {
+                ToolbarItemGroup(placement: .navigationBarLeading) {
+                    Picker("", selection: $showingTrash) {
+                        Text("Logbook").tag(false)
+                        Text("Trash").tag(true)
+                    }
+                    .pickerStyle(.segmented)
+                }
+                if showingTrash {
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        Button("Empty Trash") { store.emptyTrash() }
+                    }
+                }
+            } else {
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Button(action: { store.addHeading(to: projectID) }) { Image(systemName: "text.append") }
+                    Button(action: { store.addTodo(to: selection) }) { Image(systemName: "plus") }
+                }
+                if case let .project(projectID) = selection {
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        Button(action: { store.addHeading(to: projectID) }) { Image(systemName: "text.append") }
+                    }
                 }
             }
         }
@@ -143,13 +172,40 @@ struct ToDoListView: View {
             }
         }
         .swipeActions(edge: .trailing) {
-            Button {
-                editMode = .active
-                multiSelection.insert(todo.id)
-            } label: {
-                Label("Select", systemImage: "checkmark.circle")
+            if todo.status == .open {
+                Button(role: .destructive) {
+                    store.cancelTodo(todo.id)
+                } label: {
+                    Label("Cancel", systemImage: "xmark")
+                }
+                Button {
+                    editMode = .active
+                    multiSelection.insert(todo.id)
+                } label: {
+                    Label("Select", systemImage: "checkmark.circle")
+                }
+                .tint(.blue)
+            } else if todo.status == .canceled {
+                Button(role: .destructive) {
+                    store.deletePermanently(todo.id)
+                } label: {
+                    Label("Delete", systemImage: "trash")
+                }
+                Button {
+                    store.restoreTodo(todo.id)
+                } label: {
+                    Label("Restore", systemImage: "arrow.uturn.left")
+                }
+                .tint(.blue)
+            } else {
+                Button {
+                    editMode = .active
+                    multiSelection.insert(todo.id)
+                } label: {
+                    Label("Select", systemImage: "checkmark.circle")
+                }
+                .tint(.blue)
             }
-            .tint(.blue)
         }
         .onDrop(of: [.text], isTargeted: nil) { _ in
             store.insertTodo(after: todo.id, in: selection)
