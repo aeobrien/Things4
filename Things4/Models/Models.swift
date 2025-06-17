@@ -38,6 +38,7 @@ public struct ToDo: Codable, Identifiable, Equatable, Sendable {
     public var status: Status
     public var startDate: Date?
     public var isEvening: Bool
+    public var isSomeday: Bool
     public var deadline: Date?
     public var checklist: [ChecklistItem]
     public var tagIDs: [UUID]
@@ -55,6 +56,7 @@ public struct ToDo: Codable, Identifiable, Equatable, Sendable {
         status: Status = .open,
         startDate: Date? = nil,
         isEvening: Bool = false,
+        isSomeday: Bool = false,
         deadline: Date? = nil,
         checklist: [ChecklistItem] = [],
         tagIDs: [UUID] = [],
@@ -71,6 +73,7 @@ public struct ToDo: Codable, Identifiable, Equatable, Sendable {
         self.status = status
         self.startDate = startDate
         self.isEvening = isEvening
+        self.isSomeday = isSomeday
         self.deadline = deadline
         self.checklist = checklist
         self.tagIDs = tagIDs

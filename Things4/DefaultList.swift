@@ -1,6 +1,6 @@
 import Foundation
 
-enum DefaultList: String, CaseIterable, Identifiable {
+public enum DefaultList: String, CaseIterable, Identifiable {
     case inbox
     case today
     case upcoming
@@ -8,9 +8,9 @@ enum DefaultList: String, CaseIterable, Identifiable {
     case someday
     case logbook
 
-    var id: String { rawValue }
+    public var id: String { rawValue }
 
-    var title: String {
+    public var title: String {
         switch self {
         case .inbox: return "Inbox"
         case .today: return "Today"
