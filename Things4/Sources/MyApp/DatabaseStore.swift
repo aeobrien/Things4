@@ -1,5 +1,10 @@
 import SwiftUI
 import Things4
+import Foundation
+
+extension Notification.Name {
+    static let cloudKitDidChange = Notification.Name("cloudKitDidChange")
+}
 
 @MainActor
 final class DatabaseStore: ObservableObject {
@@ -8,7 +13,11 @@ final class DatabaseStore: ObservableObject {
     private var repeatEngine = RepeatingTaskEngine()
 
     init() {
+        NotificationCenter.default.addObserver(forName: .cloudKitDidChange, object: nil, queue: .main) { [weak self] note in
+            self?.handleRemoteNotification(note.userInfo ?? [:])
+        }
         Task {
+            await SyncManager.shared.subscribeForChanges()
             do {
                 database = try await SyncManager.shared.load()
                 if database.areas.isEmpty && database.projects.isEmpty && database.toDos.isEmpty {
@@ -183,5 +192,14 @@ final class DatabaseStore: ObservableObject {
 
     func progress(for projectID: UUID) -> Double {
         workflow.progress(for: projectID, in: database)
+    }
+
+    func handleRemoteNotification(_ userInfo: [AnyHashable: Any]) {
+        Task {
+            await SyncManager.shared.handleRemoteNotification(userInfo)
+            if let db = try? await SyncManager.shared.load() {
+                self.database = db
+            }
+        }
     }
 }

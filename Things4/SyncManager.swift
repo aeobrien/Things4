@@ -11,6 +11,7 @@ public actor SyncManager {
 
 #if canImport(CloudKit)
     private let database: CKDatabase
+    private let subscriptionID = "database-changes"
 #endif
 
     public init(persistence: PersistenceManager = PersistenceManager()) {
@@ -27,9 +28,27 @@ public actor SyncManager {
     }
 #endif
 
+    /// Ensure a subscription exists so we receive push notifications for changes in CloudKit
+    public func subscribeForChanges() async {
+#if canImport(CloudKit)
+        let subscription = CKDatabaseSubscription(subscriptionID: subscriptionID)
+        subscription.notificationInfo = {
+            let info = CKSubscription.NotificationInfo()
+            info.shouldSendContentAvailable = true
+            return info
+        }()
+        do {
+            _ = try await database.save(subscription)
+        } catch {
+            // Ignore errors like "already exists"
+        }
+#endif
+    }
+
     public func save(_ databaseData: Database) async throws {
 #if canImport(CloudKit)
         try await saveToCloudKit(databaseData)
+        try? await persistence.save(databaseData)
 #else
         try await persistence.save(databaseData)
 #endif
@@ -38,11 +57,23 @@ public actor SyncManager {
     public func load() async throws -> Database {
 #if canImport(CloudKit)
         if let db = try await loadFromCloudKit() {
+            try? await persistence.save(db)
             return db
         }
-        return Database()
+        return try await persistence.load()
 #else
         return try await persistence.load()
+#endif
+    }
+
+    /// Handle a CloudKit push notification by fetching the latest data.
+    public func handleRemoteNotification(_ userInfo: [AnyHashable: Any]) async {
+#if canImport(CloudKit)
+        guard let notification = CKNotification(fromRemoteNotificationDictionary: userInfo) as? CKDatabaseNotification,
+              notification.subscriptionID == subscriptionID else { return }
+        if let db = try? await loadFromCloudKit() {
+            try? await persistence.save(db)
+        }
 #endif
     }
 
