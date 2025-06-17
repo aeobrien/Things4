@@ -29,7 +29,9 @@ let package = Package(
                 "SyncManager.swift",
                 "WorkflowEngine.swift",
                 "RepeatingTaskEngine.swift",
-                "DefaultList.swift"
+                "DefaultList.swift",
+                "URLScheme.swift",
+                "SiriShortcuts.swift"
             ]
         ),
         .testTarget(

@@ -18,15 +18,20 @@ struct ContentView: View {
                 .imageScale(.large)
                 .foregroundStyle(.tint)
             Text("Hello, world!")
-        #if os(iOS)
-        if UIDevice.current.userInterfaceIdiom == .pad {
+        Group {
+            #if os(iOS)
+            if UIDevice.current.userInterfaceIdiom == .pad {
+                splitView
+            } else {
+                stackView
+            }
+            #else
             splitView
-        } else {
-            stackView
+            #endif
         }
-        #else
-        splitView
-        #endif
+        .onOpenURL { url in
+            store.handleURL(url)
+        }
     }
 
     private var splitView: some View {

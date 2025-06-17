@@ -51,6 +51,7 @@ final class DatabaseStore: ObservableObject {
             break
         }
         database.toDos.append(todo)
+        SiriShortcuts.donateAddIntent(todo)
         save()
     }
 
@@ -67,6 +68,7 @@ final class DatabaseStore: ObservableObject {
             }
         }
         database.toDos.append(todo)
+        SiriShortcuts.donateAddIntent(todo)
         save()
     }
 
@@ -85,6 +87,7 @@ final class DatabaseStore: ObservableObject {
             break
         }
         database.toDos.insert(todo, at: index + 1)
+        SiriShortcuts.donateAddIntent(todo)
         save()
     }
 
@@ -241,6 +244,12 @@ final class DatabaseStore: ObservableObject {
             if let db = try? await SyncManager.shared.load() {
                 self.database = db
             }
+        }
+    }
+
+    func handleURL(_ url: URL) {
+        if URLScheme.handle(url, database: &database) {
+            save()
         }
     }
 }
