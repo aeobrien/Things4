@@ -4,7 +4,6 @@ import Things4
 @MainActor
 final class DatabaseStore: ObservableObject {
     @Published var database: Database = .init()
-    private var workflow = WorkflowEngine()
 
     init() {
         Task {
@@ -21,8 +20,10 @@ final class DatabaseStore: ObservableObject {
 
     func filteredToDos(selection: ListSelection) -> [ToDo] {
         switch selection {
-        case .list(let list):
-            return workflow.tasks(for: list, in: database)
+        case .list(.inbox):
+            return database.toDos.filter { $0.parentProjectID == nil && $0.parentAreaID == nil && $0.status == .open }
+        case .list:
+            return database.toDos // For other default lists return all for now
         case .project(let id):
             return database.toDos.filter { $0.parentProjectID == id }
         case .area(let id):
