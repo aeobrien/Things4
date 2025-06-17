@@ -2,10 +2,10 @@ import Foundation
 import XCTest
 @testable import Things4
 
-final class PersistenceManagerTests: XCTestCase {
+final class SyncManagerTests: XCTestCase {
     func testSaveAndLoad() async throws {
         let tmp = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
-        let manager = PersistenceManager(fileURL: tmp)
+        let manager = SyncManager(persistence: PersistenceManager(fileURL: tmp))
 
         var database = Database()
         database.areas = [Area(title: "A1"), Area(title: "A2")]
@@ -20,8 +20,9 @@ final class PersistenceManagerTests: XCTestCase {
 
     func testLoadNonExistentReturnsEmpty() async throws {
         let tmp = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
-        let manager = PersistenceManager(fileURL: tmp)
+        let manager = SyncManager(persistence: PersistenceManager(fileURL: tmp))
         let db = try await manager.load()
         XCTAssertTrue(db.toDos.isEmpty)
     }
 }
+
