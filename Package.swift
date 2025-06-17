@@ -2,24 +2,24 @@
 import PackageDescription
 
 let package = Package(
-    name: "MyApp", // Change to match your repo/project
+    name: "Things4",
     platforms: [
         .macOS(.v13), .iOS(.v16)
     ],
     products: [
-        .executable(name: "MyApp", targets: ["MyApp"]),
+        .executable(name: "Things4", targets: ["Things4"]),
     ],
     dependencies: [
         // Add any dependencies here if needed
     ],
     targets: [
         .executableTarget(
-            name: "MyApp",
+            name: "Things4",
             dependencies: []
         ),
         .testTarget(
-            name: "MyAppTests",
-            dependencies: ["MyApp"]
+            name: "Things4Tests",
+            dependencies: ["Things4"]
         ),
     ]
 )
