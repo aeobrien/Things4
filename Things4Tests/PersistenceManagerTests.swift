@@ -1,9 +1,8 @@
 import Foundation
-import Testing
+import XCTest
 @testable import Things4
 
-struct PersistenceManagerTests {
-    @Test
+final class PersistenceManagerTests: XCTestCase {
     func testSaveAndLoad() async throws {
         let tmp = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
         let manager = PersistenceManager(fileURL: tmp)
@@ -16,14 +15,13 @@ struct PersistenceManagerTests {
         try await manager.save(database)
 
         let loaded = try await manager.load()
-        #expect(loaded == database)
+        XCTAssertEqual(loaded, database)
     }
 
-    @Test
     func testLoadNonExistentReturnsEmpty() async throws {
         let tmp = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
         let manager = PersistenceManager(fileURL: tmp)
         let db = try await manager.load()
-        #expect(db.toDos.isEmpty)
+        XCTAssertTrue(db.toDos.isEmpty)
     }
 }

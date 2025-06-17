@@ -5,13 +5,12 @@
 //  Created by Aidan O'Brien on 17/06/2025.
 //
 
-import Testing
+import XCTest
 @testable import Things4
 
-struct Things4Tests {
-
-    @Test func example() async throws {
-        // Write your test here and use APIs like `#expect(...)` to check expected conditions.
+final class Things4Tests: XCTestCase {
+    func testExample() throws {
+        // Placeholder test
+        XCTAssertTrue(true)
     }
-
 }
