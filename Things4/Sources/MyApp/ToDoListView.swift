@@ -158,7 +158,11 @@ struct ToDoListView: View {
         NavigationLink(destination: ToDoDetailView(store: store, todo: store.binding(for: todo.id))) {
             HStack {
                 Image(systemName: todo.status == .completed ? "checkmark.circle.fill" : "circle")
-                    .onTapGesture { store.toggleCompletion(for: todo.id) }
+                    .onTapGesture {
+                        withAnimation(.spring()) {
+                            store.toggleCompletion(for: todo.id)
+                        }
+                    }
                 Text(todo.title)
                     .strikethrough(todo.status == .completed)
                     .foregroundColor(todo.status == .completed ? .gray : .primary)
