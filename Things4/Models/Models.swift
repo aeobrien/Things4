@@ -38,12 +38,14 @@ public struct ToDo: Codable, Identifiable, Equatable, Sendable {
     public var status: Status
     public var startDate: Date?
     public var isEvening: Bool
+    public var isSomeday: Bool
     public var deadline: Date?
     public var checklist: [ChecklistItem]
     public var tagIDs: [UUID]
     public var parentProjectID: UUID?
     public var parentAreaID: UUID?
     public var headingID: UUID?
+    public var repeatRuleID: UUID?
 
     public init(
         id: UUID = UUID(),
@@ -55,12 +57,14 @@ public struct ToDo: Codable, Identifiable, Equatable, Sendable {
         status: Status = .open,
         startDate: Date? = nil,
         isEvening: Bool = false,
+        isSomeday: Bool = false,
         deadline: Date? = nil,
         checklist: [ChecklistItem] = [],
         tagIDs: [UUID] = [],
         parentProjectID: UUID? = nil,
         parentAreaID: UUID? = nil,
-        headingID: UUID? = nil
+        headingID: UUID? = nil,
+        repeatRuleID: UUID? = nil
     ) {
         self.id = id
         self.title = title
@@ -71,12 +75,14 @@ public struct ToDo: Codable, Identifiable, Equatable, Sendable {
         self.status = status
         self.startDate = startDate
         self.isEvening = isEvening
+        self.isSomeday = isSomeday
         self.deadline = deadline
         self.checklist = checklist
         self.tagIDs = tagIDs
         self.parentProjectID = parentProjectID
         self.parentAreaID = parentAreaID
         self.headingID = headingID
+        self.repeatRuleID = repeatRuleID
     }
 }
 
