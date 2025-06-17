@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		DDA1215D2E01D11E00E3DD1A /* Bible.md in Resources */ = {isa = PBXBuildFile; fileRef = DDA1215C2E01D11700E3DD1A /* Bible.md */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		DDA121402E01D0D500E3DD1A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -27,6 +31,7 @@
 		DDA121312E01D0D300E3DD1A /* Things4.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Things4.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DDA1213F2E01D0D500E3DD1A /* Things4Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Things4Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DDA121492E01D0D500E3DD1A /* Things4UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Things4UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		DDA1215C2E01D11700E3DD1A /* Bible.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Bible.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -75,6 +80,7 @@
 		DDA121282E01D0D300E3DD1A = {
 			isa = PBXGroup;
 			children = (
+				DDA1215C2E01D11700E3DD1A /* Bible.md */,
 				DDA121332E01D0D300E3DD1A /* Things4 */,
 				DDA121422E01D0D500E3DD1A /* Things4Tests */,
 				DDA1214C2E01D0D500E3DD1A /* Things4UITests */,
@@ -212,6 +218,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DDA1215D2E01D11E00E3DD1A /* Bible.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
