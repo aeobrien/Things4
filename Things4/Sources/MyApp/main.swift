@@ -17,17 +17,23 @@ struct Things4App: App {
 #endif
     @StateObject private var store = DatabaseStore()
     @StateObject private var selectionStore = SelectionStore()
+    @StateObject private var calendarManager = CalendarManager.shared
+    @StateObject private var remindersImporter = RemindersImporter.shared
     var body: some Scene {
         WindowGroup {
             ContentView()
                 .environmentObject(store)
                 .environmentObject(selectionStore)
+                .environmentObject(calendarManager)
+                .environmentObject(remindersImporter)
         }
 #if os(macOS)
         .commands { AppCommands().environmentObject(store).environmentObject(selectionStore) }
         WindowGroup(id: "quickEntry") { QuickEntryView() }
             .environmentObject(store)
             .environmentObject(selectionStore)
+            .environmentObject(calendarManager)
+            .environmentObject(remindersImporter)
 #endif
     }
 }

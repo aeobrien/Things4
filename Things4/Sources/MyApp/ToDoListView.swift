@@ -5,6 +5,8 @@ import UniformTypeIdentifiers
 
 struct ToDoListView: View {
     @EnvironmentObject var store: DatabaseStore
+    @EnvironmentObject var calendar: CalendarManager
+    @EnvironmentObject var reminders: RemindersImporter
     var selection: ListSelection
     @State private var editMode: EditMode = .inactive
     @State private var multiSelection = Set<UUID>()
@@ -12,6 +14,41 @@ struct ToDoListView: View {
 
     var body: some View {
         List(selection: $multiSelection) {
+            if case .list(.inbox) = selection, !reminders.reminders.isEmpty {
+                Section("Reminders") {
+                    ForEach(reminders.reminders) { item in
+                        Button(action: { Task { await reminders.importReminder(item.identifier, into: store) } }) {
+                            HStack {
+                                Image(systemName: "arrow.down.circle")
+                                Text(item.title)
+                            }
+                        }
+                    }
+                }
+            }
+
+            if case .list(let list) = selection, (list == .today || list == .upcoming) {
+                let events: [CalendarEvent] = {
+                    let today = Calendar.current.startOfDay(for: Date())
+                    if list == .today { return calendar.events(forDay: today) }
+                    else { return calendar.upcomingEvents(after: today) }
+                }()
+                if !events.isEmpty {
+                    Section("Events") {
+                        ForEach(events) { event in
+                            HStack {
+                                Image(systemName: "calendar")
+                                VStack(alignment: .leading) {
+                                    Text(event.title)
+                                    Text(event.startDate, style: .time)
+                                        .font(.caption)
+                                        .foregroundColor(.secondary)
+                                }
+                            }
+                        }
+                    }
+                }
+            }
             if case let .project(projectID) = selection {
                 let progress = store.progress(for: projectID)
                 Section {
@@ -83,6 +120,8 @@ struct ToDoListView: View {
         .sheet(item: $showSchedulerFor) { id in
             SchedulerView(todo: store.binding(for: id))
         }
+        .task { await calendar.loadUpcomingEvents() }
+        .task { await reminders.loadReminders() }
     }
 
     @ViewBuilder
@@ -122,4 +161,6 @@ struct ToDoListView: View {
 #Preview {
     ToDoListView(selection: .list(.inbox))
         .environmentObject(DatabaseStore())
+        .environmentObject(CalendarManager.shared)
+        .environmentObject(RemindersImporter.shared)
 }
