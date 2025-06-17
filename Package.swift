@@ -1,25 +1,35 @@
-// swift-tools-version: 5.9
+// swift-tools-version: 6.1
+// The swift-tools-version declares the minimum version of Swift required to build this package.
+
 import PackageDescription
 
 let package = Package(
     name: "Things4",
     platforms: [
-        .macOS(.v13), .iOS(.v16)
+        .macOS(.v12), .iOS(.v15)
     ],
     products: [
-        .executable(name: "Things4", targets: ["Things4"]),
-    ],
-    dependencies: [
-        // Add any dependencies here if needed
+        .library(name: "Things4", targets: ["Things4"]),
     ],
     targets: [
-        .executableTarget(
+        .target(
             name: "Things4",
-            dependencies: []
+            path: "Things4",
+            exclude: [
+                "Assets.xcassets",
+                "ContentView.swift",
+                "Things4App.swift",
+                "Things4.entitlements"
+            ],
+            sources: [
+                "Models/Models.swift",
+                "PersistenceManager.swift"
+            ]
         ),
         .testTarget(
             name: "Things4Tests",
-            dependencies: ["Things4"]
+            dependencies: ["Things4"],
+            path: "Things4Tests"
         ),
     ]
 )
