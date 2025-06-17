@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		DDA1215D2E01D11E00E3DD1A /* Bible.md in Resources */ = {isa = PBXBuildFile; fileRef = DDA1215C2E01D11700E3DD1A /* Bible.md */; };
+		DDA121652E01D61F00E3DD1A /* Package.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA121642E01D61B00E3DD1A /* Package.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -32,6 +33,7 @@
 		DDA1213F2E01D0D500E3DD1A /* Things4Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Things4Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DDA121492E01D0D500E3DD1A /* Things4UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Things4UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DDA1215C2E01D11700E3DD1A /* Bible.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Bible.md; sourceTree = "<group>"; };
+		DDA121642E01D61B00E3DD1A /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -80,6 +82,7 @@
 		DDA121282E01D0D300E3DD1A = {
 			isa = PBXGroup;
 			children = (
+				DDA121642E01D61B00E3DD1A /* Package.swift */,
 				DDA1215C2E01D11700E3DD1A /* Bible.md */,
 				DDA121332E01D0D300E3DD1A /* Things4 */,
 				DDA121422E01D0D500E3DD1A /* Things4Tests */,
@@ -243,6 +246,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DDA121652E01D61F00E3DD1A /* Package.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
