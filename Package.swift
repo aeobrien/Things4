@@ -24,6 +24,7 @@ let package = Package(
                 "Models/Models.swift",
                 "PersistenceManager.swift",
                 "WorkflowEngine.swift",
+                "RepeatingTaskEngine.swift",
                 "DefaultList.swift"
             ]
         ),

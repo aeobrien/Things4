@@ -45,6 +45,7 @@ public struct ToDo: Codable, Identifiable, Equatable, Sendable {
     public var parentProjectID: UUID?
     public var parentAreaID: UUID?
     public var headingID: UUID?
+    public var repeatRuleID: UUID?
 
     public init(
         id: UUID = UUID(),
@@ -62,7 +63,8 @@ public struct ToDo: Codable, Identifiable, Equatable, Sendable {
         tagIDs: [UUID] = [],
         parentProjectID: UUID? = nil,
         parentAreaID: UUID? = nil,
-        headingID: UUID? = nil
+        headingID: UUID? = nil,
+        repeatRuleID: UUID? = nil
     ) {
         self.id = id
         self.title = title
@@ -80,6 +82,7 @@ public struct ToDo: Codable, Identifiable, Equatable, Sendable {
         self.parentProjectID = parentProjectID
         self.parentAreaID = parentAreaID
         self.headingID = headingID
+        self.repeatRuleID = repeatRuleID
     }
 }
 
