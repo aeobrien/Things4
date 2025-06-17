@@ -1,3 +1,10 @@
+//
+//  ContentView.swift
+//  Things4
+//
+//  Created by Aidan O'Brien on 17/06/2025.
+//
+
 import SwiftUI
 import Things4
 
@@ -6,6 +13,11 @@ struct ContentView: View {
     @EnvironmentObject var selectionStore: SelectionStore
 
     var body: some View {
+        VStack {
+            Image(systemName: "globe")
+                .imageScale(.large)
+                .foregroundStyle(.tint)
+            Text("Hello, world!")
         #if os(iOS)
         if UIDevice.current.userInterfaceIdiom == .pad {
             splitView
@@ -89,6 +101,7 @@ struct ContentView: View {
             Text("Select a list")
                 .navigationTitle("Things4")
         }
+        .padding()
     }
 }
 
