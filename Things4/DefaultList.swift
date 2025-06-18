@@ -7,6 +7,7 @@ public enum DefaultList: String, CaseIterable, Identifiable {
     case anytime
     case someday
     case logbook
+    case trash
 
     public var id: String { rawValue }
 
@@ -18,6 +19,7 @@ public enum DefaultList: String, CaseIterable, Identifiable {
         case .anytime: return "Anytime"
         case .someday: return "Someday"
         case .logbook: return "Logbook"
+        case .trash: return "Trash"
         }
     }
 }

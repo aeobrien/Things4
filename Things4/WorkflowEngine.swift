@@ -42,6 +42,8 @@ public struct WorkflowEngine {
         case .logbook:
             return database.toDos.filter { $0.status == .completed }
                 .sorted { ($0.completionDate ?? Date.distantPast) > ($1.completionDate ?? Date.distantPast) }
+        case .trash:
+            return database.toDos.filter { $0.status == .canceled }
         }
     }
 

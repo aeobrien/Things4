@@ -49,8 +49,10 @@ public actor SyncManager {
 
     public func save(_ databaseData: Database) async throws {
 #if canImport(CloudKit)
-        try await saveToCloudKit(databaseData)
-        try? await persistence.save(databaseData)
+        // Save locally first to ensure data persists
+        try await persistence.save(databaseData)
+        // Then try CloudKit (don't fail if CloudKit fails)
+        try? await saveToCloudKit(databaseData)
 #else
         try await persistence.save(databaseData)
 #endif
@@ -58,11 +60,18 @@ public actor SyncManager {
 
     public func load() async throws -> Database {
 #if canImport(CloudKit)
-        if let db = try await loadFromCloudKit() {
-            try? await persistence.save(db)
-            return db
+        // Always try local first
+        do {
+            return try await persistence.load()
+        } catch {
+            // If local fails, try CloudKit
+            if let db = try? await loadFromCloudKit() {
+                try? await persistence.save(db)
+                return db
+            }
+            // If both fail, return empty database
+            return Database()
         }
-        return try await persistence.load()
 #else
         return try await persistence.load()
 #endif

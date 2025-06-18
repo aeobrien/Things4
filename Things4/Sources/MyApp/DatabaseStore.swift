@@ -111,7 +111,14 @@ final class DatabaseStore: ObservableObject {
     }
 
     func save() {
-        Task { try? await SyncManager.shared.save(database) }
+        Task { 
+            do {
+                try await SyncManager.shared.save(database)
+                print("Database saved successfully")
+            } catch {
+                print("Failed to save database: \(error)")
+            }
+        }
     }
 
     func binding(for todoID: UUID) -> Binding<ToDo> {

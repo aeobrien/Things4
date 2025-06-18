@@ -105,11 +105,21 @@
 			);
 			target = DDA121AE2E02295E00E3DD1A /* ThingsWidgetExtension */;
 		};
+		DDA1223A2E02CB6900E3DD1A /* Exceptions for "Things4" folder in "Things4" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = DDA121302E01D0D300E3DD1A /* Things4 */;
+		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		DDA121332E01D0D300E3DD1A /* Things4 */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				DDA1223A2E02CB6900E3DD1A /* Exceptions for "Things4" folder in "Things4" target */,
+			);
 			path = Things4;
 			sourceTree = "<group>";
 		};
@@ -742,6 +752,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Things4/Info.plist;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -772,6 +783,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Things4/Info.plist;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
