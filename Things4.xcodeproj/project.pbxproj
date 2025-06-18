@@ -8,7 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		DDA1215D2E01D11E00E3DD1A /* Bible.md in Resources */ = {isa = PBXBuildFile; fileRef = DDA1215C2E01D11700E3DD1A /* Bible.md */; };
-		DDA121652E01D61F00E3DD1A /* Package.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA121642E01D61B00E3DD1A /* Package.swift */; };
+		DDA121B22E02295E00E3DD1A /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDA121B12E02295E00E3DD1A /* WidgetKit.framework */; };
+		DDA121B42E02295E00E3DD1A /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDA121B32E02295E00E3DD1A /* SwiftUI.framework */; };
+		DDA121C22E02295F00E3DD1A /* ThingsWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = DDA121AF2E02295E00E3DD1A /* ThingsWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		DDA121EE2E022EE800E3DD1A /* ThingsWatch Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = DDA121CE2E022EE700E3DD1A /* ThingsWatch Watch App.app */; platformFilter = ios; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -26,15 +29,83 @@
 			remoteGlobalIDString = DDA121302E01D0D300E3DD1A;
 			remoteInfo = Things4;
 		};
+		DDA121C02E02295F00E3DD1A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DDA121292E01D0D300E3DD1A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DDA121AE2E02295E00E3DD1A;
+			remoteInfo = ThingsWidgetExtension;
+		};
+		DDA121DB2E022EE800E3DD1A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DDA121292E01D0D300E3DD1A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DDA121CD2E022EE700E3DD1A;
+			remoteInfo = "ThingsWatch Watch App";
+		};
+		DDA121E52E022EE800E3DD1A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DDA121292E01D0D300E3DD1A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DDA121CD2E022EE700E3DD1A;
+			remoteInfo = "ThingsWatch Watch App";
+		};
+		DDA121EC2E022EE800E3DD1A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DDA121292E01D0D300E3DD1A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DDA121CD2E022EE700E3DD1A;
+			remoteInfo = "ThingsWatch Watch App";
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		DDA121C72E02295F00E3DD1A /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				DDA121C22E02295F00E3DD1A /* ThingsWidgetExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DDA121F22E022EE800E3DD1A /* Embed Watch Content */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
+			dstSubfolderSpec = 16;
+			files = (
+				DDA121EE2E022EE800E3DD1A /* ThingsWatch Watch App.app in Embed Watch Content */,
+			);
+			name = "Embed Watch Content";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		DDA121312E01D0D300E3DD1A /* Things4.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Things4.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DDA1213F2E01D0D500E3DD1A /* Things4Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Things4Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DDA121492E01D0D500E3DD1A /* Things4UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Things4UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DDA1215C2E01D11700E3DD1A /* Bible.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Bible.md; sourceTree = "<group>"; };
-		DDA121642E01D61B00E3DD1A /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
+		DDA121AF2E02295E00E3DD1A /* ThingsWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ThingsWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		DDA121B12E02295E00E3DD1A /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		DDA121B32E02295E00E3DD1A /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		DDA121CE2E022EE700E3DD1A /* ThingsWatch Watch App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ThingsWatch Watch App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DDA121DA2E022EE800E3DD1A /* ThingsWatch Watch AppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "ThingsWatch Watch AppTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DDA121E42E022EE800E3DD1A /* ThingsWatch Watch AppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "ThingsWatch Watch AppUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		DDA121C32E02295F00E3DD1A /* Exceptions for "ThingsWidget" folder in "ThingsWidgetExtension" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = DDA121AE2E02295E00E3DD1A /* ThingsWidgetExtension */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		DDA121332E01D0D300E3DD1A /* Things4 */ = {
@@ -50,6 +121,29 @@
 		DDA1214C2E01D0D500E3DD1A /* Things4UITests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = Things4UITests;
+			sourceTree = "<group>";
+		};
+		DDA121B52E02295E00E3DD1A /* ThingsWidget */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				DDA121C32E02295F00E3DD1A /* Exceptions for "ThingsWidget" folder in "ThingsWidgetExtension" target */,
+			);
+			path = ThingsWidget;
+			sourceTree = "<group>";
+		};
+		DDA121CF2E022EE700E3DD1A /* ThingsWatch Watch App */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "ThingsWatch Watch App";
+			sourceTree = "<group>";
+		};
+		DDA121DD2E022EE800E3DD1A /* ThingsWatch Watch AppTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "ThingsWatch Watch AppTests";
+			sourceTree = "<group>";
+		};
+		DDA121E72E022EE800E3DD1A /* ThingsWatch Watch AppUITests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "ThingsWatch Watch AppUITests";
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -76,17 +170,51 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		DDA121AC2E02295E00E3DD1A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DDA121B42E02295E00E3DD1A /* SwiftUI.framework in Frameworks */,
+				DDA121B22E02295E00E3DD1A /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DDA121CB2E022EE700E3DD1A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DDA121D72E022EE800E3DD1A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DDA121E12E022EE800E3DD1A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		DDA121282E01D0D300E3DD1A = {
 			isa = PBXGroup;
 			children = (
-				DDA121642E01D61B00E3DD1A /* Package.swift */,
 				DDA1215C2E01D11700E3DD1A /* Bible.md */,
 				DDA121332E01D0D300E3DD1A /* Things4 */,
 				DDA121422E01D0D500E3DD1A /* Things4Tests */,
 				DDA1214C2E01D0D500E3DD1A /* Things4UITests */,
+				DDA121B52E02295E00E3DD1A /* ThingsWidget */,
+				DDA121CF2E022EE700E3DD1A /* ThingsWatch Watch App */,
+				DDA121DD2E022EE800E3DD1A /* ThingsWatch Watch AppTests */,
+				DDA121E72E022EE800E3DD1A /* ThingsWatch Watch AppUITests */,
+				DDA121B02E02295E00E3DD1A /* Frameworks */,
 				DDA121322E01D0D300E3DD1A /* Products */,
 			);
 			sourceTree = "<group>";
@@ -97,8 +225,21 @@
 				DDA121312E01D0D300E3DD1A /* Things4.app */,
 				DDA1213F2E01D0D500E3DD1A /* Things4Tests.xctest */,
 				DDA121492E01D0D500E3DD1A /* Things4UITests.xctest */,
+				DDA121AF2E02295E00E3DD1A /* ThingsWidgetExtension.appex */,
+				DDA121CE2E022EE700E3DD1A /* ThingsWatch Watch App.app */,
+				DDA121DA2E022EE800E3DD1A /* ThingsWatch Watch AppTests.xctest */,
+				DDA121E42E022EE800E3DD1A /* ThingsWatch Watch AppUITests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		DDA121B02E02295E00E3DD1A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				DDA121B12E02295E00E3DD1A /* WidgetKit.framework */,
+				DDA121B32E02295E00E3DD1A /* SwiftUI.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -111,10 +252,14 @@
 				DDA1212D2E01D0D300E3DD1A /* Sources */,
 				DDA1212E2E01D0D300E3DD1A /* Frameworks */,
 				DDA1212F2E01D0D300E3DD1A /* Resources */,
+				DDA121C72E02295F00E3DD1A /* Embed Foundation Extensions */,
+				DDA121F22E022EE800E3DD1A /* Embed Watch Content */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				DDA121C12E02295F00E3DD1A /* PBXTargetDependency */,
+				DDA121ED2E022EE800E3DD1A /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				DDA121332E01D0D300E3DD1A /* Things4 */,
@@ -172,6 +317,96 @@
 			productReference = DDA121492E01D0D500E3DD1A /* Things4UITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
+		DDA121AE2E02295E00E3DD1A /* ThingsWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DDA121C42E02295F00E3DD1A /* Build configuration list for PBXNativeTarget "ThingsWidgetExtension" */;
+			buildPhases = (
+				DDA121AB2E02295E00E3DD1A /* Sources */,
+				DDA121AC2E02295E00E3DD1A /* Frameworks */,
+				DDA121AD2E02295E00E3DD1A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				DDA121B52E02295E00E3DD1A /* ThingsWidget */,
+			);
+			name = ThingsWidgetExtension;
+			packageProductDependencies = (
+			);
+			productName = ThingsWidgetExtension;
+			productReference = DDA121AF2E02295E00E3DD1A /* ThingsWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+		DDA121CD2E022EE700E3DD1A /* ThingsWatch Watch App */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DDA121EF2E022EE800E3DD1A /* Build configuration list for PBXNativeTarget "ThingsWatch Watch App" */;
+			buildPhases = (
+				DDA121CA2E022EE700E3DD1A /* Sources */,
+				DDA121CB2E022EE700E3DD1A /* Frameworks */,
+				DDA121CC2E022EE700E3DD1A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				DDA121CF2E022EE700E3DD1A /* ThingsWatch Watch App */,
+			);
+			name = "ThingsWatch Watch App";
+			packageProductDependencies = (
+			);
+			productName = "ThingsWatch Watch App";
+			productReference = DDA121CE2E022EE700E3DD1A /* ThingsWatch Watch App.app */;
+			productType = "com.apple.product-type.application";
+		};
+		DDA121D92E022EE800E3DD1A /* ThingsWatch Watch AppTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DDA121F32E022EE800E3DD1A /* Build configuration list for PBXNativeTarget "ThingsWatch Watch AppTests" */;
+			buildPhases = (
+				DDA121D62E022EE800E3DD1A /* Sources */,
+				DDA121D72E022EE800E3DD1A /* Frameworks */,
+				DDA121D82E022EE800E3DD1A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DDA121DC2E022EE800E3DD1A /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				DDA121DD2E022EE800E3DD1A /* ThingsWatch Watch AppTests */,
+			);
+			name = "ThingsWatch Watch AppTests";
+			packageProductDependencies = (
+			);
+			productName = "ThingsWatch Watch AppTests";
+			productReference = DDA121DA2E022EE800E3DD1A /* ThingsWatch Watch AppTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		DDA121E32E022EE800E3DD1A /* ThingsWatch Watch AppUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DDA121F62E022EE800E3DD1A /* Build configuration list for PBXNativeTarget "ThingsWatch Watch AppUITests" */;
+			buildPhases = (
+				DDA121E02E022EE800E3DD1A /* Sources */,
+				DDA121E12E022EE800E3DD1A /* Frameworks */,
+				DDA121E22E022EE800E3DD1A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DDA121E62E022EE800E3DD1A /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				DDA121E72E022EE800E3DD1A /* ThingsWatch Watch AppUITests */,
+			);
+			name = "ThingsWatch Watch AppUITests";
+			packageProductDependencies = (
+			);
+			productName = "ThingsWatch Watch AppUITests";
+			productReference = DDA121E42E022EE800E3DD1A /* ThingsWatch Watch AppUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -193,6 +428,20 @@
 						CreatedOnToolsVersion = 16.3;
 						TestTargetID = DDA121302E01D0D300E3DD1A;
 					};
+					DDA121AE2E02295E00E3DD1A = {
+						CreatedOnToolsVersion = 16.3;
+					};
+					DDA121CD2E022EE700E3DD1A = {
+						CreatedOnToolsVersion = 16.3;
+					};
+					DDA121D92E022EE800E3DD1A = {
+						CreatedOnToolsVersion = 16.3;
+						TestTargetID = DDA121CD2E022EE700E3DD1A;
+					};
+					DDA121E32E022EE800E3DD1A = {
+						CreatedOnToolsVersion = 16.3;
+						TestTargetID = DDA121CD2E022EE700E3DD1A;
+					};
 				};
 			};
 			buildConfigurationList = DDA1212C2E01D0D300E3DD1A /* Build configuration list for PBXProject "Things4" */;
@@ -212,6 +461,10 @@
 				DDA121302E01D0D300E3DD1A /* Things4 */,
 				DDA1213E2E01D0D500E3DD1A /* Things4Tests */,
 				DDA121482E01D0D500E3DD1A /* Things4UITests */,
+				DDA121AE2E02295E00E3DD1A /* ThingsWidgetExtension */,
+				DDA121CD2E022EE700E3DD1A /* ThingsWatch Watch App */,
+				DDA121D92E022EE800E3DD1A /* ThingsWatch Watch AppTests */,
+				DDA121E32E022EE800E3DD1A /* ThingsWatch Watch AppUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -239,6 +492,34 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		DDA121AD2E02295E00E3DD1A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DDA121CC2E022EE700E3DD1A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DDA121D82E022EE800E3DD1A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DDA121E22E022EE800E3DD1A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -246,7 +527,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DDA121652E01D61F00E3DD1A /* Package.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -258,6 +538,34 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		DDA121452E01D0D500E3DD1A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DDA121AB2E02295E00E3DD1A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DDA121CA2E022EE700E3DD1A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DDA121D62E022EE800E3DD1A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DDA121E02E022EE800E3DD1A /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -276,6 +584,27 @@
 			isa = PBXTargetDependency;
 			target = DDA121302E01D0D300E3DD1A /* Things4 */;
 			targetProxy = DDA1214A2E01D0D500E3DD1A /* PBXContainerItemProxy */;
+		};
+		DDA121C12E02295F00E3DD1A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DDA121AE2E02295E00E3DD1A /* ThingsWidgetExtension */;
+			targetProxy = DDA121C02E02295F00E3DD1A /* PBXContainerItemProxy */;
+		};
+		DDA121DC2E022EE800E3DD1A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DDA121CD2E022EE700E3DD1A /* ThingsWatch Watch App */;
+			targetProxy = DDA121DB2E022EE800E3DD1A /* PBXContainerItemProxy */;
+		};
+		DDA121E62E022EE800E3DD1A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DDA121CD2E022EE700E3DD1A /* ThingsWatch Watch App */;
+			targetProxy = DDA121E52E022EE800E3DD1A /* PBXContainerItemProxy */;
+		};
+		DDA121ED2E022EE800E3DD1A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			platformFilter = ios;
+			target = DDA121CD2E022EE700E3DD1A /* ThingsWatch Watch App */;
+			targetProxy = DDA121EC2E022EE800E3DD1A /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -422,8 +751,11 @@
 				PRODUCT_BUNDLE_IDENTIFIER = AOTondra.Things4;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				REGISTER_APP_GROUPS = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -449,8 +781,11 @@
 				PRODUCT_BUNDLE_IDENTIFIER = AOTondra.Things4;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				REGISTER_APP_GROUPS = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -522,6 +857,203 @@
 			};
 			name = Release;
 		};
+		DDA121C52E02295F00E3DD1A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = ThingsWidget/ThingsWidget.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5R2D4Y969H;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ThingsWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = ThingsWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = AOTondra.Things4.ThingsWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		DDA121C62E02295F00E3DD1A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = ThingsWidget/ThingsWidget.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5R2D4Y969H;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ThingsWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = ThingsWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = AOTondra.Things4.ThingsWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		DDA121F02E022EE800E3DD1A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5R2D4Y969H;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = ThingsWatch;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = AOTondra.Things4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = AOTondra.Things4.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 11.4;
+			};
+			name = Debug;
+		};
+		DDA121F12E022EE800E3DD1A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5R2D4Y969H;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = ThingsWatch;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = AOTondra.Things4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = AOTondra.Things4.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				VALIDATE_PRODUCT = YES;
+				WATCHOS_DEPLOYMENT_TARGET = 11.4;
+			};
+			name = Release;
+		};
+		DDA121F42E022EE800E3DD1A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5R2D4Y969H;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "AOTondra.Things4.ThingsWatch-Watch-AppTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ThingsWatch Watch App.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/ThingsWatch Watch App";
+				WATCHOS_DEPLOYMENT_TARGET = 11.4;
+			};
+			name = Debug;
+		};
+		DDA121F52E022EE800E3DD1A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5R2D4Y969H;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "AOTondra.Things4.ThingsWatch-Watch-AppTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ThingsWatch Watch App.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/ThingsWatch Watch App";
+				VALIDATE_PRODUCT = YES;
+				WATCHOS_DEPLOYMENT_TARGET = 11.4;
+			};
+			name = Release;
+		};
+		DDA121F72E022EE800E3DD1A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5R2D4Y969H;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "AOTondra.Things4.ThingsWatch-Watch-AppUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				TEST_TARGET_NAME = "ThingsWatch Watch App";
+				WATCHOS_DEPLOYMENT_TARGET = 11.4;
+			};
+			name = Debug;
+		};
+		DDA121F82E022EE800E3DD1A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5R2D4Y969H;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "AOTondra.Things4.ThingsWatch-Watch-AppUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				TEST_TARGET_NAME = "ThingsWatch Watch App";
+				VALIDATE_PRODUCT = YES;
+				WATCHOS_DEPLOYMENT_TARGET = 11.4;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -557,6 +1089,42 @@
 			buildConfigurations = (
 				DDA1215A2E01D0D500E3DD1A /* Debug */,
 				DDA1215B2E01D0D500E3DD1A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DDA121C42E02295F00E3DD1A /* Build configuration list for PBXNativeTarget "ThingsWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DDA121C52E02295F00E3DD1A /* Debug */,
+				DDA121C62E02295F00E3DD1A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DDA121EF2E022EE800E3DD1A /* Build configuration list for PBXNativeTarget "ThingsWatch Watch App" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DDA121F02E022EE800E3DD1A /* Debug */,
+				DDA121F12E022EE800E3DD1A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DDA121F32E022EE800E3DD1A /* Build configuration list for PBXNativeTarget "ThingsWatch Watch AppTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DDA121F42E022EE800E3DD1A /* Debug */,
+				DDA121F52E022EE800E3DD1A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DDA121F62E022EE800E3DD1A /* Build configuration list for PBXNativeTarget "ThingsWatch Watch AppUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DDA121F72E022EE800E3DD1A /* Debug */,
+				DDA121F82E022EE800E3DD1A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

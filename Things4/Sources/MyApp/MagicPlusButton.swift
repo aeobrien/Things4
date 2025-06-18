@@ -18,7 +18,8 @@ struct MagicPlusButton: View {
                 DragGesture(minimumDistance: 0)
                     .updating($pressed) { _, state, _ in state = true }
             )
-            .draggable(NSItemProvider(object: NSString(string: "plus")))
+            // TODO: Implement draggable with Transferable protocol
+            // .draggable(...)
     }
 }
 

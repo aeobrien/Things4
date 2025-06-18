@@ -27,14 +27,21 @@ struct Things4App: App {
                 .environmentObject(calendarManager)
                 .environmentObject(remindersImporter)
         }
-#if os(macOS)
-        .commands { AppCommands().environmentObject(store).environmentObject(selectionStore) }
-        WindowGroup(id: "quickEntry") { QuickEntryView() }
-            .environmentObject(store)
-            .environmentObject(selectionStore)
-            .environmentObject(calendarManager)
-            .environmentObject(remindersImporter)
-#endif
+        #if os(macOS)
+        .commands { 
+            AppCommands()
+        }
+        #endif
+        
+        #if os(macOS)
+        WindowGroup(id: "quickEntry") { 
+            QuickEntryView()
+                .environmentObject(store)
+                .environmentObject(selectionStore)
+                .environmentObject(calendarManager)
+                .environmentObject(remindersImporter)
+        }
+        #endif
     }
 }
 

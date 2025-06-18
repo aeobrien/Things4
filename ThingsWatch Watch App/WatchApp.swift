@@ -1,5 +1,4 @@
 import SwiftUI
-import Things4
 
 @main
 struct ThingsWatchApp: App {

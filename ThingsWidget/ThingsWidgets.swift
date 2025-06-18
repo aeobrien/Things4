@@ -1,44 +1,43 @@
 import WidgetKit
 import SwiftUI
-import Things4
 
-struct SimpleEntry: TimelineEntry {
+struct TodoEntry: TimelineEntry {
     let date: Date
     let todos: [ToDo]
     let progress: Double
 }
 
-struct Provider: TimelineProvider {
-    func placeholder(in context: Context) -> SimpleEntry {
-        SimpleEntry(date: Date(), todos: [], progress: 0)
+struct TodoProvider: TimelineProvider {
+    func placeholder(in context: Context) -> TodoEntry {
+        TodoEntry(date: Date(), todos: [], progress: 0)
     }
 
-    func getSnapshot(in context: Context, completion: @escaping (SimpleEntry) -> Void) {
+    func getSnapshot(in context: Context, completion: @escaping (TodoEntry) -> Void) {
         Task {
             let db = (try? await SyncManager.shared.load()) ?? Database()
             let engine = WorkflowEngine()
             let todos = engine.tasks(for: .today, in: db)
             let completed = todos.filter { $0.status == .completed }.count
             let progress = todos.isEmpty ? 0 : Double(completed) / Double(todos.count)
-            completion(SimpleEntry(date: Date(), todos: Array(todos.prefix(3)), progress: progress))
+            completion(TodoEntry(date: Date(), todos: Array(todos.prefix(3)), progress: progress))
         }
     }
 
-    func getTimeline(in context: Context, completion: @escaping (Timeline<SimpleEntry>) -> Void) {
+    func getTimeline(in context: Context, completion: @escaping (Timeline<TodoEntry>) -> Void) {
         Task {
             let db = (try? await SyncManager.shared.load()) ?? Database()
             let engine = WorkflowEngine()
             let todos = engine.tasks(for: .today, in: db)
             let completed = todos.filter { $0.status == .completed }.count
             let progress = todos.isEmpty ? 0 : Double(completed) / Double(todos.count)
-            let entry = SimpleEntry(date: Date(), todos: Array(todos.prefix(3)), progress: progress)
+            let entry = TodoEntry(date: Date(), todos: Array(todos.prefix(3)), progress: progress)
             completion(Timeline(entries: [entry], policy: .after(Date().addingTimeInterval(60*15))))
         }
     }
 }
 
 struct TodayListWidgetEntryView: View {
-    var entry: Provider.Entry
+    var entry: TodoProvider.Entry
     var body: some View {
         VStack(alignment: .leading) {
             ForEach(entry.todos) { todo in
@@ -57,29 +56,25 @@ struct TodayListWidgetEntryView: View {
 }
 
 struct ProgressRingWidgetEntryView: View {
-    var entry: Provider.Entry
+    var entry: TodoProvider.Entry
     var body: some View {
         Gauge(value: entry.progress) {
             Text("Today")
         }
+        #if os(watchOS) || os(iOS)
         .gaugeStyle(.accessoryCircular)
+        #else
+        .gaugeStyle(.linearCapacity)
+        #endif
         .padding()
     }
 }
 
-@main
-struct ThingsWidgets: WidgetBundle {
-    var body: some Widget {
-        TodayListWidget()
-        ProgressRingWidget()
-        AddTodoWidget()
-    }
-}
 
 struct TodayListWidget: Widget {
     let kind = "TodayListWidget"
     var body: some WidgetConfiguration {
-        StaticConfiguration(kind: kind, provider: Provider()) { entry in
+        StaticConfiguration(kind: kind, provider: TodoProvider()) { entry in
             TodayListWidgetEntryView(entry: entry)
         }
         .configurationDisplayName("Today List")
@@ -91,20 +86,28 @@ struct TodayListWidget: Widget {
 struct ProgressRingWidget: Widget {
     let kind = "ProgressRingWidget"
     var body: some WidgetConfiguration {
-        StaticConfiguration(kind: kind, provider: Provider()) { entry in
+        StaticConfiguration(kind: kind, provider: TodoProvider()) { entry in
             ProgressRingWidgetEntryView(entry: entry)
         }
         .configurationDisplayName("Today Progress")
         .description("Shows progress of today's tasks.")
-        .supportedFamilies([.accessoryCircular, .accessoryRectangular, .systemSmall])
+        .supportedFamilies(supportedFamiliesForProgressWidget())
     }
+}
+
+func supportedFamiliesForProgressWidget() -> [WidgetFamily] {
+    #if os(watchOS) || os(iOS)
+    return [.accessoryCircular, .accessoryRectangular, .systemSmall]
+    #else
+    return [.systemSmall]
+    #endif
 }
 
 struct AddTodoWidget: Widget {
     let kind = "AddTodoWidget"
 
     var body: some WidgetConfiguration {
-        StaticConfiguration(kind: kind, provider: Provider()) { _ in
+        StaticConfiguration(kind: kind, provider: TodoProvider()) { _ in
             Link(destination: URL(string: "things4://add")!) {
                 VStack {
                     Image(systemName: "plus.circle.fill")

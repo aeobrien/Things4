@@ -11,7 +11,7 @@ import AppIntents
 public enum SiriShortcuts {
     /// Donate a simple intent when a new to-do is created.
     public static func donateAddIntent(_ todo: ToDo) {
-        #if canImport(Intents)
+        #if canImport(Intents) && os(iOS)
         let intent = INAddTasksIntent(targetTaskList: nil, taskTitles: [INSpeakableString(spokenPhrase: todo.title)], spatialEventTrigger: nil, temporalEventTrigger: nil, priority: .notFlagged)
         let interaction = INInteraction(intent: intent, response: nil)
         interaction.donate(completion: nil)
@@ -22,7 +22,7 @@ public enum SiriShortcuts {
     #if canImport(AppIntents)
     @available(iOS 16.0, macOS 13.0, *)
     public static var appShortcuts: [AppShortcut] {
-        AppShortcut(intent: AddTaskIntent(), phrases: ["Add task with \(.title)"])!.intoArray()
+        [AppShortcut(intent: AddTaskIntent(), phrases: ["Add task with \(.applicationName)", "Create new task"])]
     }
     #else
     public static var appShortcuts: [String] { [] }
@@ -37,7 +37,7 @@ struct AddTaskIntent: AppIntent {
     @Parameter var notes: String?
 
     static var parameterSummary: some ParameterSummary {
-        Summary("Add a to-do named \(.title)")
+        Summary("Add a to-do named \(\.$title)")
     }
 
     func perform() async throws -> some IntentResult {
@@ -49,8 +49,3 @@ struct AddTaskIntent: AppIntent {
 }
 #endif
 
-#if canImport(AppIntents)
-extension AppShortcut {
-    fileprivate func intoArray() -> [AppShortcut] { [self] }
-}
-#endif

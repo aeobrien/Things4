@@ -36,9 +36,13 @@ final class RemindersImporter: ObservableObject {
         guard let id = listIdentifier,
               let calendar = store.calendar(withIdentifier: id) else { return }
         let predicate = store.predicateForReminders(in: [calendar])
-        let items = try? await store.fetchReminders(matching: predicate)
+        let items = await withCheckedContinuation { continuation in
+            store.fetchReminders(matching: predicate) { reminders in
+                continuation.resume(returning: reminders ?? [])
+            }
+        }
         map = [:]
-        reminders = (items ?? []).map { r in
+        reminders = items.map { r in
             map[r.calendarItemIdentifier] = r
             return PendingReminder(identifier: r.calendarItemIdentifier, title: r.title ?? "", dueDate: r.dueDateComponents?.date)
         }

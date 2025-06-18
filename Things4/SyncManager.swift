@@ -17,7 +17,9 @@ public actor SyncManager {
     public init(persistence: PersistenceManager = PersistenceManager()) {
         self.persistence = persistence
 #if canImport(CloudKit)
-        self.database = CKContainer.default().privateCloudDatabase
+        // Use a specific container identifier to avoid nil container issues
+        let container = CKContainer(identifier: "iCloud.AOTondra.Things4")
+        self.database = container.privateCloudDatabase
 #endif
     }
 

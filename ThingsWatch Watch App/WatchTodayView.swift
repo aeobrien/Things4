@@ -1,5 +1,4 @@
 import SwiftUI
-import Things4
 
 struct WatchTodayView: View {
     @EnvironmentObject var store: WatchStore
